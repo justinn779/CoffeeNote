@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CoffeeNote 手沖咖啡紀錄</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <h1 class="hero-title">☕ CoffeeNote</h1>
+    <p class="hero-sub">手沖咖啡紀錄本 — 選擇你的組別，輸入代號開始</p>
+
+    <div class="card">
+      <label>選擇組別</label>
+      <div class="group-grid" id="group-grid"></div>
+
+      <label for="name-input">輸入代號</label>
+      <input type="text" id="name-input" placeholder="例如：小明 / A01" maxlength="20" />
+
+      <div style="margin-top: 20px;">
+        <button class="btn" id="start-btn" disabled>開始使用</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/page-index.js"></script>
+</body>
+</html>

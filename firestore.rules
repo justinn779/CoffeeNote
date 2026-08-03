@@ -1,0 +1,25 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /records/{recordId} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().hasAll(
+          ['group', 'name', 'concentration', 'liquidWeight', 'passConcentration', 'passLiquid', 'passOverall']
+        )
+        && request.resource.data.group is string
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() < 40
+        && request.resource.data.concentration is number
+        && request.resource.data.liquidWeight is number
+        && request.resource.data.passConcentration is bool
+        && request.resource.data.passLiquid is bool
+        && request.resource.data.passOverall is bool;
+
+      // 紀錄送出後不可修改或刪除
+      allow update, delete: if false;
+    }
+  }
+}

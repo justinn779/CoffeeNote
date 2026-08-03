@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>新增手沖紀錄 - CoffeeNote</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <h1>☕ CoffeeNote</h1>
+    <div>
+      <span class="identity" id="identity-label"></span>
+      <a href="dashboard.html" class="logout">返回主選單</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <h2>新增手沖紀錄</h2>
+    <div id="msg-area"></div>
+
+    <form id="record-form">
+      <div class="card">
+        <div class="key-metrics">
+          <label for="concentration-input">濃度 (%) <span style="color:var(--fail)">*必填</span></label>
+          <input type="number" id="concentration-input" step="0.01" min="0" required placeholder="例如 1.30" />
+          <div class="metric-row">
+            <span id="concentration-badge" class="badge neutral">尚未輸入</span>
+            <span class="hint" id="concentration-hint"></span>
+          </div>
+
+          <label for="liquid-input" style="margin-top:16px;">液體量 (g) <span style="color:var(--fail)">*必填</span></label>
+          <input type="number" id="liquid-input" step="1" min="0" required placeholder="例如 200" />
+          <div class="metric-row">
+            <span id="liquid-badge" class="badge neutral">尚未輸入</span>
+            <span class="hint" id="liquid-hint"></span>
+          </div>
+
+          <div class="metric-row" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
+            <strong>整體判定</strong>
+            <span id="overall-badge" class="badge neutral">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top:0;">咖啡豆資訊</h2>
+        <label for="bean-name">豆子名稱</label>
+        <input type="text" id="bean-name" placeholder="例如：耶加雪菲 / 綜合配方" />
+
+        <label for="bean-origin">產地</label>
+        <input type="text" id="bean-origin" placeholder="例如：衣索比亞" />
+
+        <label for="roast-level">烘焙度</label>
+        <select id="roast-level">
+          <option value="">未選擇</option>
+          <option value="淺焙">淺焙</option>
+          <option value="中焙">中焙</option>
+          <option value="中深焙">中深焙</option>
+          <option value="深焙">深焙</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top:0;">沖煮參數</h2>
+        <div class="field-row">
+          <div>
+            <label for="water-temp">水溫 (°C)</label>
+            <input type="number" id="water-temp" step="0.5" placeholder="例如 92" />
+          </div>
+          <div>
+            <label for="dose-weight">粉重 (g)</label>
+            <input type="number" id="dose-weight" step="0.1" placeholder="例如 15" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label for="water-weight">注水量 (g)</label>
+            <input type="number" id="water-weight" step="1" placeholder="例如 225" />
+          </div>
+          <div>
+            <label for="brew-time">沖煮時間</label>
+            <input type="text" id="brew-time" placeholder="例如 2:30" />
+          </div>
+        </div>
+        <label for="grind-size">研磨刻度</label>
+        <input type="text" id="grind-size" placeholder="例如 中細 / #20" />
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top:0;">備註</h2>
+        <label for="notes">風味 / 心得（選填）</label>
+        <textarea id="notes" placeholder="口感、酸甜苦、下次調整方向..."></textarea>
+      </div>
+
+      <button type="submit" class="btn" id="submit-btn">送出紀錄</button>
+    </form>
+  </div>
+
+  <script type="module" src="js/page-record.js"></script>
+</body>
+</html>

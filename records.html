@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>查看紀錄 - CoffeeNote</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <h1>☕ CoffeeNote</h1>
+    <div>
+      <span class="identity" id="identity-label"></span>
+      <a href="dashboard.html" class="logout">返回主選單</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <h2>手沖紀錄</h2>
+
+    <div class="filter-bar">
+      <select id="filter-bean">
+        <option value="">全部豆子</option>
+      </select>
+      <select id="filter-group">
+        <option value="">全部組別</option>
+      </select>
+      <label class="checkbox-row">
+        <input type="checkbox" id="filter-mine" />
+        只看我的紀錄
+      </label>
+    </div>
+
+    <div id="list-area">
+      <p class="empty-state">載入中...</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/page-records.js"></script>
+</body>
+</html>
