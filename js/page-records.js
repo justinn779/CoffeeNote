@@ -39,14 +39,14 @@ function populateBeanOptions() {
   const beanMeta = new Map();
   allRecords.forEach((r) => {
     if (!r.beanName || beanMeta.has(r.beanName)) return;
-    beanMeta.set(r.beanName, { origin: r.beanOrigin, roastLevel: r.roastLevel });
+    beanMeta.set(r.beanName, { origin: r.beanOrigin, roastLevel: r.roastLevel, processMethod: r.processMethod });
   });
 
   const beans = [...beanMeta.keys()].sort();
   beanFilter.innerHTML = '<option value="">全部豆子</option>';
   beans.forEach((b) => {
-    const { origin, roastLevel } = beanMeta.get(b);
-    const meta = [origin, roastLevel].filter(Boolean).join(' · ');
+    const { origin, roastLevel, processMethod } = beanMeta.get(b);
+    const meta = [origin, roastLevel, processMethod].filter(Boolean).join(' · ');
     const opt = document.createElement('option');
     opt.value = b;
     opt.textContent = meta ? `${b}（${meta}）` : b;
@@ -87,6 +87,7 @@ function render() {
         ['豆子', r.beanName],
         ['產地', r.beanOrigin],
         ['烘焙度', r.roastLevel],
+        ['處理法', r.processMethod],
         ['水溫', r.waterTemp != null ? `${r.waterTemp} °C` : ''],
         ['粉重', r.doseWeight != null ? `${r.doseWeight} g` : ''],
         ['注水量', r.waterWeight != null ? `${r.waterWeight} g` : ''],

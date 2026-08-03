@@ -96,7 +96,7 @@ async function loadBeans() {
       '<option value="">尚未選擇</option>' +
       beansCache
         .map((b) => {
-          const meta = [b.origin, b.roastLevel].filter(Boolean).join(' · ');
+          const meta = [b.origin, b.roastLevel, b.processMethod].filter(Boolean).join(' · ');
           const label = meta ? `${b.name}（${meta}）` : b.name;
           return `<option value="${escapeHtml(b.name)}">${escapeHtml(label)}</option>`;
         })
@@ -108,8 +108,8 @@ async function loadBeans() {
 
 function updateBeanMeta() {
   const bean = beansCache.find((b) => b.name === beanSelect.value);
-  const parts = bean ? [bean.origin, bean.roastLevel].filter(Boolean) : [];
-  beanMeta.textContent = parts.length ? `產地／焙度：${parts.join(' · ')}` : '';
+  const parts = bean ? [bean.origin, bean.roastLevel, bean.processMethod].filter(Boolean) : [];
+  beanMeta.textContent = parts.length ? `產地／焙度／處理法：${parts.join(' · ')}` : '';
 }
 
 beanSelect.addEventListener('change', updateBeanMeta);
@@ -228,6 +228,7 @@ form.addEventListener('submit', async (e) => {
     beanName: selectedBeanName,
     beanOrigin: selectedBean ? selectedBean.origin || '' : '',
     roastLevel: selectedBean ? selectedBean.roastLevel || '' : '',
+    processMethod: selectedBean ? selectedBean.processMethod || '' : '',
     waterTemp: parseFloatOrNull(waterTempInput.value),
     doseWeight: parseFloatOrNull(doseSelect.value),
     waterWeight: parseFloatOrNull(waterWeightInput.value),

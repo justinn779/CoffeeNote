@@ -10,6 +10,7 @@ if (identity) {
 const nameInput = document.getElementById('bean-name-input');
 const originInput = document.getElementById('bean-origin-input');
 const roastInput = document.getElementById('bean-roast-input');
+const processInput = document.getElementById('bean-process-input');
 const addBtn = document.getElementById('add-bean-btn');
 const listEl = document.getElementById('bean-list');
 const msgArea = document.getElementById('msg-area');
@@ -37,7 +38,7 @@ async function loadBeans() {
 
     listEl.innerHTML = beans
       .map((b) => {
-        const meta = [b.origin, b.roastLevel].filter(Boolean).map(escapeHtml).join(' · ');
+        const meta = [b.origin, b.roastLevel, b.processMethod].filter(Boolean).map(escapeHtml).join(' · ');
         return `
           <div class="card bean-item">
             <div class="bean-item-info">
@@ -68,11 +69,13 @@ addBtn.addEventListener('click', async () => {
       name,
       origin: originInput.value.trim(),
       roastLevel: roastInput.value,
+      processMethod: processInput.value,
       createdAt: serverTimestamp(),
     });
     nameInput.value = '';
     originInput.value = '';
     roastInput.value = '';
+    processInput.value = '';
     msgArea.innerHTML = '';
     await loadBeans();
   } catch (err) {
