@@ -1,12 +1,15 @@
-import { collection, addDoc, getDocs, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { collection, addDoc, updateDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { db } from './firebase-init.js';
-import { THRESHOLDS, evaluatePass, DOSE_OPTIONS, FIELD_DEFAULTS, computeWaterWeight, computeLiquidWeight } from './config.js';
+import { THRESHOLDS, evaluatePass, DOSE_OPTIONS, FIELD_DEFAULTS, computeWaterWeight } from './config.js';
 import { requireIdentity } from './identity.js';
 
 const identity = requireIdentity();
 if (identity) {
   document.getElementById('identity-label').textContent = `第 ${identity.group} 組・${identity.name}`;
 }
+
+const editId = new URLSearchParams(window.location.search).get('id');
+let editingRecordId = null;
 
 const concentrationInput = document.getElementById('concentration-input');
 const liquidInput = document.getElementById('liquid-input');
@@ -16,6 +19,8 @@ const overallBadge = document.getElementById('overall-badge');
 const msgArea = document.getElementById('msg-area');
 const form = document.getElementById('record-form');
 const submitBtn = document.getElementById('submit-btn');
+const pageTitle = document.getElementById('page-title');
+const beanMeta = document.getElementById('bean-meta');
 
 const waterTempInput = document.getElementById('water-temp');
 const doseSelect = document.getElementById('dose-weight');
@@ -48,12 +53,11 @@ grindSizeInput.value = FIELD_DEFAULTS.grindSize.toFixed(1);
 concentrationInput.value = FIELD_DEFAULTS.concentration.toFixed(2);
 brewMinutesInput.value = FIELD_DEFAULTS.brewMinutes;
 brewSecondsInput.value = FIELD_DEFAULTS.brewSeconds;
-applyDoseDefaults();
 
 function applyDoseDefaults() {
   const dose = parseFloat(doseSelect.value);
   waterWeightInput.value = computeWaterWeight(dose);
-  liquidInput.value = computeLiquidWeight(dose);
+  liquidInput.value = FIELD_DEFAULTS.liquidWeight;
   liquidInput.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
@@ -96,7 +100,56 @@ async function loadBeans() {
   }
 }
 
-loadBeans();
+function updateBeanMeta() {
+  const bean = beansCache.find((b) => b.name === beanSelect.value);
+  const parts = bean ? [bean.origin, bean.roastLevel].filter(Boolean) : [];
+  beanMeta.textContent = parts.length ? `產地／焙度：${parts.join(' · ')}` : '';
+}
+
+beanSelect.addEventListener('change', updateBeanMeta);
+
+// ---- 編輯既有紀錄 ----
+async function loadForEdit(id) {
+  try {
+    const snap = await getDoc(doc(db, 'records', id));
+    if (!snap.exists()) {
+      alert('找不到這筆紀錄');
+      window.location.href = 'records.html';
+      return;
+    }
+    const data = snap.data();
+    if (!identity || data.group !== identity.group || data.name !== identity.name) {
+      alert('只能編輯自己的紀錄');
+      window.location.href = 'records.html';
+      return;
+    }
+
+    editingRecordId = id;
+    pageTitle.textContent = '編輯手沖紀錄';
+    submitBtn.textContent = '更新紀錄';
+
+    beanSelect.value = data.beanName || '';
+    updateBeanMeta();
+
+    waterTempInput.value = (data.waterTemp ?? FIELD_DEFAULTS.waterTemp).toFixed(1);
+    doseSelect.value = data.doseWeight != null ? String(data.doseWeight) : String(FIELD_DEFAULTS.doseWeight);
+    waterWeightInput.value = data.waterWeight ?? computeWaterWeight(parseFloat(doseSelect.value));
+    grindSizeInput.value = Number(data.grindSize ?? FIELD_DEFAULTS.grindSize).toFixed(1);
+
+    if (data.brewTime) {
+      const [m, s] = data.brewTime.split(':');
+      brewMinutesInput.value = parseInt(m, 10);
+      brewSecondsInput.value = parseInt(s, 10);
+    }
+
+    concentrationInput.value = Number(data.concentration ?? FIELD_DEFAULTS.concentration).toFixed(2);
+    liquidInput.value = data.liquidWeight ?? FIELD_DEFAULTS.liquidWeight;
+    document.getElementById('notes').value = data.notes || '';
+  } catch (err) {
+    console.error(err);
+    showMsg('載入紀錄失敗，請確認網路連線後重新整理頁面', 'error');
+  }
+}
 
 // ---- 濃度 / 液體量過關判定 ----
 function setBadge(el, state, passText, failText) {
@@ -141,7 +194,6 @@ function refreshBadges() {
 
 concentrationInput.addEventListener('input', refreshBadges);
 liquidInput.addEventListener('input', refreshBadges);
-refreshBadges();
 
 function showMsg(text, type) {
   msgArea.innerHTML = `<div class="msg ${type}">${text}</div>`;
@@ -181,30 +233,25 @@ form.addEventListener('submit', async (e) => {
     passLiquid,
     passOverall,
     notes: document.getElementById('notes').value.trim(),
-    createdAt: serverTimestamp(),
   };
 
   submitBtn.disabled = true;
-  submitBtn.textContent = '送出中...';
 
   try {
-    await addDoc(collection(db, 'records'), record);
-    showMsg('紀錄已送出！', 'success');
-    form.reset();
-    doseSelect.value = String(FIELD_DEFAULTS.doseWeight);
-    waterTempInput.value = FIELD_DEFAULTS.waterTemp.toFixed(1);
-    grindSizeInput.value = FIELD_DEFAULTS.grindSize.toFixed(1);
-    concentrationInput.value = FIELD_DEFAULTS.concentration.toFixed(2);
-    brewMinutesInput.value = FIELD_DEFAULTS.brewMinutes;
-    brewSecondsInput.value = FIELD_DEFAULTS.brewSeconds;
-    applyDoseDefaults();
-    refreshBadges();
+    if (editingRecordId) {
+      submitBtn.textContent = '更新中...';
+      await updateDoc(doc(db, 'records', editingRecordId), { ...record, updatedAt: serverTimestamp() });
+      window.location.href = 'records.html';
+    } else {
+      submitBtn.textContent = '送出中...';
+      await addDoc(collection(db, 'records'), { ...record, createdAt: serverTimestamp() });
+      window.location.href = 'dashboard.html';
+    }
   } catch (err) {
     console.error(err);
     showMsg('送出失敗，請確認網路連線後再試一次', 'error');
-  } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = '送出紀錄';
+    submitBtn.textContent = editingRecordId ? '更新紀錄' : '送出紀錄';
   }
 });
 
@@ -213,3 +260,19 @@ function parseFloatOrNull(v) {
   const n = parseFloat(v);
   return Number.isNaN(n) ? null : n;
 }
+
+// ---- 初始化 ----
+async function init() {
+  if (!editId) {
+    applyDoseDefaults();
+  }
+  await loadBeans();
+  if (editId) {
+    await loadForEdit(editId);
+  } else {
+    updateBeanMeta();
+  }
+  refreshBadges();
+}
+
+init();

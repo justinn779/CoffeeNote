@@ -18,8 +18,19 @@ service cloud.firestore {
         && request.resource.data.passLiquid is bool
         && request.resource.data.passOverall is bool;
 
-      // 紀錄送出後不可修改或刪除
-      allow update, delete: if false;
+      // 只能更正本人（同組別＋同名稱）的紀錄，且不可更改是誰的紀錄
+      allow update: if request.resource.data.keys().hasAll(
+          ['group', 'name', 'concentration', 'liquidWeight', 'passConcentration', 'passLiquid', 'passOverall']
+        )
+        && request.resource.data.group == resource.data.group
+        && request.resource.data.name == resource.data.name
+        && request.resource.data.concentration is number
+        && request.resource.data.liquidWeight is number
+        && request.resource.data.passConcentration is bool
+        && request.resource.data.passLiquid is bool
+        && request.resource.data.passOverall is bool;
+
+      allow delete: if false;
     }
 
     match /beans/{beanId} {

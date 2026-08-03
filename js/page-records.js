@@ -87,6 +87,8 @@ function render() {
         ['備註', r.notes],
       ].filter(([, v]) => v);
 
+      const isMine = identity && r.group === identity.group && r.name === identity.name;
+
       return `
         <details class="card record-card">
           <summary>
@@ -104,6 +106,7 @@ function render() {
           <div class="record-detail">
             <div>濃度判定：${badge(r.passConcentration, '過關', '未過關')}　液體量判定：${badge(r.passLiquid, '過關', '未過關')}</div>
             ${detailRows.map(([k, v]) => `<div><strong>${k}：</strong>${escapeHtml(String(v))}</div>`).join('')}
+            ${isMine ? `<div style="margin-top:10px;"><button type="button" class="edit-btn" data-id="${r.id}">✏️ 更正這筆紀錄</button></div>` : ''}
           </div>
         </details>
       `;
@@ -120,5 +123,11 @@ function escapeHtml(str) {
 beanFilter.addEventListener('change', render);
 groupFilter.addEventListener('change', render);
 mineFilter.addEventListener('change', render);
+
+listArea.addEventListener('click', (e) => {
+  const btn = e.target.closest('.edit-btn');
+  if (!btn) return;
+  window.location.href = `record.html?id=${btn.dataset.id}`;
+});
 
 loadRecords();

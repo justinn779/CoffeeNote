@@ -18,15 +18,12 @@ export const FIELD_DEFAULTS = {
   brewSeconds: 30,
   grindSize: 5.0,
   concentration: 1.3,
+  liquidWeight: 200,
 };
 
-// 注水量／液體量的預設值都是依粉重比例換算，粉重改變時會重新計算
+// 注水量的預設值依粉重比例換算，粉重改變時會重新計算
 export function computeWaterWeight(doseWeight) {
   return Math.round(doseWeight * 15);
-}
-
-export function computeLiquidWeight(doseWeight) {
-  return Math.round(doseWeight * 13);
 }
 
 export function evaluatePass(concentration, liquidWeight) {

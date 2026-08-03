@@ -8,7 +8,10 @@
 </head>
 <body>
   <div class="topbar">
-    <h1>☕ CoffeeNote</h1>
+    <div class="topbar-left">
+      <a href="index.html" class="icon-btn back-btn" aria-label="回上一頁">←</a>
+      <a href="dashboard.html" class="title-link"><h1>☕ CoffeeNote</h1></a>
+    </div>
     <div>
       <span class="identity" id="identity-label"></span>
       <a href="#" class="logout" id="logout-link">切換身份</a>
@@ -16,10 +19,15 @@
   </div>
 
   <div class="page">
-    <h2>你想做什麼？</h2>
-    <div class="btn-row">
-      <a class="btn" href="record.html">📝 新增手沖紀錄</a>
-      <a class="btn btn-secondary" href="records.html">📋 查看紀錄</a>
+    <div class="btn-grid-square">
+      <a class="btn-square" href="record.html">
+        <span class="btn-square-icon">📝</span>
+        <span class="btn-square-label">新增手沖紀錄</span>
+      </a>
+      <a class="btn-square btn-square-secondary" href="records.html">
+        <span class="btn-square-icon">📋</span>
+        <span class="btn-square-label">查看紀錄</span>
+      </a>
     </div>
 
     <p class="footer-link"><a href="beans.html">☕ 管理咖啡豆清單</a></p>

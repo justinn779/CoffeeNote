@@ -8,15 +8,15 @@
 </head>
 <body>
   <div class="topbar">
-    <h1>☕ CoffeeNote</h1>
-    <div>
-      <span class="identity" id="identity-label"></span>
-      <a href="dashboard.html" class="logout">返回主選單</a>
+    <div class="topbar-left">
+      <a href="dashboard.html" class="icon-btn back-btn" aria-label="回上一頁">←</a>
+      <a href="dashboard.html" class="title-link"><h1>☕ CoffeeNote</h1></a>
     </div>
+    <span class="identity" id="identity-label"></span>
   </div>
 
   <div class="page">
-    <h2>新增手沖紀錄</h2>
+    <h2 id="page-title">新增手沖紀錄</h2>
     <div id="msg-area"></div>
 
     <form id="record-form">
@@ -26,6 +26,7 @@
         <select id="bean-select">
           <option value="">尚未選擇</option>
         </select>
+        <p class="hint" id="bean-meta"></p>
         <p class="hint">豆子沒有列出來？<a href="beans.html">去新增咖啡豆</a></p>
       </div>
 
@@ -84,9 +85,9 @@
         <div class="key-metrics">
           <label for="concentration-input">濃度 (%) <span style="color:var(--fail)">*必填</span></label>
           <div class="stepper" data-decimals="2">
-            <button type="button" class="stepper-btn" data-delta="-0.1">－</button>
-            <input type="number" id="concentration-input" class="stepper-input" step="0.1" min="0" max="5" required inputmode="decimal" />
-            <button type="button" class="stepper-btn" data-delta="0.1">＋</button>
+            <button type="button" class="stepper-btn" data-delta="-0.01">－</button>
+            <input type="number" id="concentration-input" class="stepper-input" step="0.01" min="0" max="5" required inputmode="decimal" />
+            <button type="button" class="stepper-btn" data-delta="0.01">＋</button>
           </div>
           <div class="metric-row">
             <span id="concentration-badge" class="badge neutral">尚未輸入</span>
