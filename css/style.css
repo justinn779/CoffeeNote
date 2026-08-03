@@ -63,16 +63,16 @@ body {
   font-size: 13px;
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.topbar-left .title-link {
+.topbar .title-link {
   display: inline-flex;
   color: inherit;
   text-decoration: none;
+}
+
+.subbar {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 10px 16px 0;
 }
 
 .icon-btn {
@@ -80,11 +80,12 @@ body {
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
-  background: rgba(247, 240, 230, 0.14);
-  color: var(--cream);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--coffee-dark);
   text-decoration: none;
   font-size: 18px;
   line-height: 1;

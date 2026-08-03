@@ -94,7 +94,13 @@ async function loadBeans() {
     beansCache = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     beanSelect.innerHTML =
       '<option value="">尚未選擇</option>' +
-      beansCache.map((b) => `<option value="${escapeHtml(b.name)}">${escapeHtml(b.name)}</option>`).join('');
+      beansCache
+        .map((b) => {
+          const meta = [b.origin, b.roastLevel].filter(Boolean).join(' · ');
+          const label = meta ? `${b.name}（${meta}）` : b.name;
+          return `<option value="${escapeHtml(b.name)}">${escapeHtml(label)}</option>`;
+        })
+        .join('');
   } catch (err) {
     console.error(err);
   }
