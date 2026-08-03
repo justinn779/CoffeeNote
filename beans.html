@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>編輯咖啡豆 - CoffeeNote</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <h1>☕ CoffeeNote</h1>
+    <a href="index.html" class="logout">← 返回首頁</a>
+  </div>
+
+  <div class="page">
+    <h2>新增咖啡豆</h2>
+    <div id="msg-area"></div>
+
+    <div class="card">
+      <label for="bean-name-input">豆子名稱 <span style="color:var(--fail)">*必填</span></label>
+      <input type="text" id="bean-name-input" placeholder="例如：耶加雪菲" maxlength="40" />
+
+      <label for="bean-origin-input">產地（選填）</label>
+      <input type="text" id="bean-origin-input" placeholder="例如：衣索比亞" maxlength="40" />
+
+      <label for="bean-roast-input">烘焙度（選填）</label>
+      <select id="bean-roast-input">
+        <option value="">未選擇</option>
+        <option value="淺焙">淺焙</option>
+        <option value="中焙">中焙</option>
+        <option value="中深焙">中深焙</option>
+        <option value="深焙">深焙</option>
+      </select>
+
+      <div style="margin-top: 16px;">
+        <button type="button" class="btn" id="add-bean-btn">新增咖啡豆</button>
+      </div>
+    </div>
+
+    <h2>目前的咖啡豆</h2>
+    <div id="bean-list">
+      <p class="empty-state">載入中...</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/page-beans.js"></script>
+</body>
+</html>

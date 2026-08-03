@@ -189,10 +189,103 @@ textarea {
   gap: 12px;
 }
 
-.field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.stepper {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.stepper-btn {
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--coffee-dark);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stepper-dual .stepper-btn {
+  min-width: 38px;
+  font-size: 13px;
+}
+
+.stepper-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* 隱藏原生數字上下箭頭，改用自訂的加減按鈕 */
+.stepper-input::-webkit-outer-spin-button,
+.stepper-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.stepper-input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-row .stepper {
+  flex: 1;
+}
+
+.time-colon {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--coffee-dark);
+}
+
+.footer-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-link a {
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.bean-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.bean-item-name {
+  font-weight: 600;
+  color: var(--coffee-dark);
+}
+
+.bean-item-meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.bean-delete-btn {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--fail);
+  background: var(--fail-bg);
+  color: var(--fail);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .badge {

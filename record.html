@@ -21,16 +21,81 @@
 
     <form id="record-form">
       <div class="card">
+        <h2 style="margin-top:0;">1. 咖啡豆資訊</h2>
+        <label for="bean-select">選擇豆子</label>
+        <select id="bean-select">
+          <option value="">尚未選擇</option>
+        </select>
+        <p class="hint">豆子沒有列出來？<a href="beans.html">去新增咖啡豆</a></p>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top:0;">2. 沖煮參數</h2>
+
+        <label for="water-temp">水溫 (°C)</label>
+        <div class="stepper" data-decimals="1">
+          <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
+          <input type="number" id="water-temp" class="stepper-input" step="0.5" min="0" max="100" inputmode="decimal" />
+          <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
+        </div>
+
+        <label for="dose-weight">粉重 (g)</label>
+        <select id="dose-weight"></select>
+
+        <label for="water-weight">注水量 (g)</label>
+        <div class="stepper stepper-dual" data-decimals="0">
+          <button type="button" class="stepper-btn" data-delta="-5">－5</button>
+          <button type="button" class="stepper-btn" data-delta="-1">－1</button>
+          <input type="number" id="water-weight" class="stepper-input" step="1" min="0" max="2000" inputmode="numeric" />
+          <button type="button" class="stepper-btn" data-delta="1">＋1</button>
+          <button type="button" class="stepper-btn" data-delta="5">＋5</button>
+        </div>
+
+        <label>沖煮總時間（分:秒）</label>
+        <div class="time-row">
+          <div class="stepper" data-decimals="0">
+            <button type="button" class="stepper-btn" data-delta="-1">－</button>
+            <input type="number" id="brew-minutes" class="stepper-input" step="1" min="0" max="59" inputmode="numeric" />
+            <button type="button" class="stepper-btn" data-delta="1">＋</button>
+          </div>
+          <span class="time-colon">:</span>
+          <div class="stepper" data-decimals="0">
+            <button type="button" class="stepper-btn" data-delta="-5">－</button>
+            <input type="number" id="brew-seconds" class="stepper-input" step="5" min="0" max="59" inputmode="numeric" />
+            <button type="button" class="stepper-btn" data-delta="5">＋</button>
+          </div>
+        </div>
+
+        <label for="grind-size">研磨刻度</label>
+        <div class="stepper" data-decimals="1">
+          <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
+          <input type="number" id="grind-size" class="stepper-input" step="0.5" min="0" max="20" inputmode="decimal" />
+          <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
+        </div>
+      </div>
+
+      <h2>3. 沖煮結果</h2>
+      <div class="card">
         <div class="key-metrics">
           <label for="concentration-input">濃度 (%) <span style="color:var(--fail)">*必填</span></label>
-          <input type="number" id="concentration-input" step="0.01" min="0" required placeholder="例如 1.30" />
+          <div class="stepper" data-decimals="2">
+            <button type="button" class="stepper-btn" data-delta="-0.1">－</button>
+            <input type="number" id="concentration-input" class="stepper-input" step="0.1" min="0" max="5" required inputmode="decimal" />
+            <button type="button" class="stepper-btn" data-delta="0.1">＋</button>
+          </div>
           <div class="metric-row">
             <span id="concentration-badge" class="badge neutral">尚未輸入</span>
             <span class="hint" id="concentration-hint"></span>
           </div>
 
           <label for="liquid-input" style="margin-top:16px;">液體量 (g) <span style="color:var(--fail)">*必填</span></label>
-          <input type="number" id="liquid-input" step="1" min="0" required placeholder="例如 200" />
+          <div class="stepper stepper-dual" data-decimals="0">
+            <button type="button" class="stepper-btn" data-delta="-5">－5</button>
+            <button type="button" class="stepper-btn" data-delta="-1">－1</button>
+            <input type="number" id="liquid-input" class="stepper-input" step="1" min="0" max="2000" required inputmode="numeric" />
+            <button type="button" class="stepper-btn" data-delta="1">＋1</button>
+            <button type="button" class="stepper-btn" data-delta="5">＋5</button>
+          </div>
           <div class="metric-row">
             <span id="liquid-badge" class="badge neutral">尚未輸入</span>
             <span class="hint" id="liquid-hint"></span>
@@ -44,51 +109,7 @@
       </div>
 
       <div class="card">
-        <h2 style="margin-top:0;">咖啡豆資訊</h2>
-        <label for="bean-name">豆子名稱</label>
-        <input type="text" id="bean-name" placeholder="例如：耶加雪菲 / 綜合配方" />
-
-        <label for="bean-origin">產地</label>
-        <input type="text" id="bean-origin" placeholder="例如：衣索比亞" />
-
-        <label for="roast-level">烘焙度</label>
-        <select id="roast-level">
-          <option value="">未選擇</option>
-          <option value="淺焙">淺焙</option>
-          <option value="中焙">中焙</option>
-          <option value="中深焙">中深焙</option>
-          <option value="深焙">深焙</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <h2 style="margin-top:0;">沖煮參數</h2>
-        <div class="field-row">
-          <div>
-            <label for="water-temp">水溫 (°C)</label>
-            <input type="number" id="water-temp" step="0.5" placeholder="例如 92" />
-          </div>
-          <div>
-            <label for="dose-weight">粉重 (g)</label>
-            <input type="number" id="dose-weight" step="0.1" placeholder="例如 15" />
-          </div>
-        </div>
-        <div class="field-row">
-          <div>
-            <label for="water-weight">注水量 (g)</label>
-            <input type="number" id="water-weight" step="1" placeholder="例如 225" />
-          </div>
-          <div>
-            <label for="brew-time">沖煮時間</label>
-            <input type="text" id="brew-time" placeholder="例如 2:30" />
-          </div>
-        </div>
-        <label for="grind-size">研磨刻度</label>
-        <input type="text" id="grind-size" placeholder="例如 中細 / #20" />
-      </div>
-
-      <div class="card">
-        <h2 style="margin-top:0;">備註</h2>
+        <h2 style="margin-top:0;">4. 備註</h2>
         <label for="notes">風味 / 心得（選填）</label>
         <textarea id="notes" placeholder="口感、酸甜苦、下次調整方向..."></textarea>
       </div>
