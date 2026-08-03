@@ -69,10 +69,15 @@ body {
   text-decoration: none;
 }
 
-.subbar {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 10px 16px 0;
+.page-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 12px;
+}
+
+.page-heading h2 {
+  margin: 0;
 }
 
 .icon-btn {
@@ -80,14 +85,14 @@ body {
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--card);
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  padding: 0;
   color: var(--coffee-dark);
   text-decoration: none;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 1;
 }
 
