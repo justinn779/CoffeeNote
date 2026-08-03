@@ -36,12 +36,20 @@ async function loadRecords() {
 }
 
 function populateBeanOptions() {
-  const beans = [...new Set(allRecords.map((r) => r.beanName).filter(Boolean))].sort();
+  const beanMeta = new Map();
+  allRecords.forEach((r) => {
+    if (!r.beanName || beanMeta.has(r.beanName)) return;
+    beanMeta.set(r.beanName, { origin: r.beanOrigin, roastLevel: r.roastLevel });
+  });
+
+  const beans = [...beanMeta.keys()].sort();
   beanFilter.innerHTML = '<option value="">全部豆子</option>';
   beans.forEach((b) => {
+    const { origin, roastLevel } = beanMeta.get(b);
+    const meta = [origin, roastLevel].filter(Boolean).join(' · ');
     const opt = document.createElement('option');
     opt.value = b;
-    opt.textContent = b;
+    opt.textContent = meta ? `${b}（${meta}）` : b;
     beanFilter.appendChild(opt);
   });
 }
