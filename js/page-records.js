@@ -76,6 +76,7 @@ function render() {
   listArea.innerHTML = filtered
     .map((r) => {
       const detailRows = [
+        ['豆子', r.beanName],
         ['產地', r.beanOrigin],
         ['烘焙度', r.roastLevel],
         ['水溫', r.waterTemp != null ? `${r.waterTemp} °C` : ''],
@@ -90,7 +91,8 @@ function render() {
         <details class="card record-card">
           <summary>
             <div class="record-head-main">
-              <span class="who">第 ${escapeHtml(r.group)} 組・${escapeHtml(r.name)}${r.beanName ? '　' + escapeHtml(r.beanName) : ''}</span>
+              <span class="who">第 ${escapeHtml(r.group)} 組・${escapeHtml(r.name)}</span>
+              ${r.beanName ? `<span class="bean">${escapeHtml(r.beanName)}</span>` : ''}
               <span class="meta">${formatTime(r.createdAt)}</span>
             </div>
             <div class="record-metrics">

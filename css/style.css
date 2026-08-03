@@ -32,10 +32,15 @@ body {
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  gap: 6px 12px;
+  padding: 12px 16px;
   background: var(--coffee-dark);
   color: var(--cream);
 }
@@ -51,6 +56,8 @@ body {
 }
 
 .topbar a.logout {
+  display: inline-block;
+  padding: 4px 0 4px 8px;
   color: var(--cream);
   text-decoration: underline;
   font-size: 13px;
@@ -124,11 +131,12 @@ input[type='number'],
 select,
 textarea {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--cream);
-  font-size: 15px;
+  /* 16px 避免 iOS Safari 聚焦輸入框時自動放大畫面 */
+  font-size: 16px;
   color: var(--text);
 }
 
@@ -155,6 +163,18 @@ textarea {
 .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+  padding: 14px 16px max(14px, env(safe-area-inset-bottom));
+  margin: 8px -16px 0;
+  background: linear-gradient(to top, var(--cream) 65%, transparent);
+}
+
+.sticky-footer .btn {
+  box-shadow: 0 4px 14px rgba(75, 54, 33, 0.25);
 }
 
 .btn-secondary {
@@ -223,29 +243,33 @@ textarea {
 .filter-bar select {
   width: auto;
   flex: 1;
-  min-width: 120px;
+  min-width: 130px;
 }
 
 .checkbox-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  padding: 8px 0;
   font-size: 14px;
   color: var(--text);
   white-space: nowrap;
 }
 
 .checkbox-row input {
-  width: auto;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--coffee-dark);
 }
 
 .record-card summary {
   cursor: pointer;
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 6px 10px;
 }
 
 .record-card summary::-webkit-details-marker {
@@ -256,11 +280,21 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
+  flex: 1 1 160px;
 }
 
 .record-head-main .who {
   font-weight: 600;
   color: var(--coffee-dark);
+}
+
+.record-head-main .bean {
+  font-size: 13px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .record-head-main .meta {
@@ -270,6 +304,7 @@ textarea {
 
 .record-metrics {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   align-items: center;
 }
