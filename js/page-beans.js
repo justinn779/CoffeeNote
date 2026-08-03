@@ -1,5 +1,11 @@
 import { collection, addDoc, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { db } from './firebase-init.js';
+import { requireIdentity } from './identity.js';
+
+const identity = requireIdentity();
+if (identity) {
+  document.getElementById('identity-label').textContent = `第 ${identity.group} 組・${identity.name}`;
+}
 
 const nameInput = document.getElementById('bean-name-input');
 const originInput = document.getElementById('bean-origin-input');

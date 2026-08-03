@@ -189,6 +189,12 @@ textarea {
   gap: 12px;
 }
 
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
 .stepper {
   display: flex;
   align-items: stretch;

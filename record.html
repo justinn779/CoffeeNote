@@ -32,15 +32,27 @@
       <div class="card">
         <h2 style="margin-top:0;">2. 沖煮參數</h2>
 
-        <label for="water-temp">水溫 (°C)</label>
-        <div class="stepper" data-decimals="1">
-          <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
-          <input type="number" id="water-temp" class="stepper-input" step="0.5" min="0" max="100" inputmode="decimal" />
-          <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
+        <div class="field-row">
+          <div>
+            <label for="water-temp">水溫 (°C)</label>
+            <div class="stepper" data-decimals="1">
+              <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
+              <input type="number" id="water-temp" class="stepper-input" step="0.5" min="0" max="100" inputmode="decimal" />
+              <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
+            </div>
+          </div>
+          <div>
+            <label for="dose-weight">粉重 (g)</label>
+            <select id="dose-weight"></select>
+          </div>
         </div>
 
-        <label for="dose-weight">粉重 (g)</label>
-        <select id="dose-weight"></select>
+        <label for="grind-size">研磨刻度</label>
+        <div class="stepper" data-decimals="1">
+          <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
+          <input type="number" id="grind-size" class="stepper-input" step="0.5" min="0" max="20" inputmode="decimal" />
+          <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
+        </div>
 
         <label for="water-weight">注水量 (g)</label>
         <div class="stepper stepper-dual" data-decimals="0">
@@ -64,13 +76,6 @@
             <input type="number" id="brew-seconds" class="stepper-input" step="5" min="0" max="59" inputmode="numeric" />
             <button type="button" class="stepper-btn" data-delta="5">＋</button>
           </div>
-        </div>
-
-        <label for="grind-size">研磨刻度</label>
-        <div class="stepper" data-decimals="1">
-          <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
-          <input type="number" id="grind-size" class="stepper-input" step="0.5" min="0" max="20" inputmode="decimal" />
-          <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
         </div>
       </div>
 
