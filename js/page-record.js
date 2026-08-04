@@ -204,6 +204,13 @@ function refreshBadges() {
 concentrationInput.addEventListener('input', refreshBadges);
 liquidInput.addEventListener('input', refreshBadges);
 
+// 手動輸入完離開欄位時，統一補齊到小數點後兩位（例如 1.3 -> 1.30）
+concentrationInput.addEventListener('blur', () => {
+  if (concentrationInput.value === '') return;
+  const value = parseFloat(concentrationInput.value);
+  if (!Number.isNaN(value)) concentrationInput.value = value.toFixed(2);
+});
+
 function showMsg(text, type) {
   msgArea.innerHTML = `<div class="msg ${type}">${text}</div>`;
 }

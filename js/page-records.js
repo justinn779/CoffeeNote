@@ -113,7 +113,7 @@ function render() {
               <span class="meta">${formatTime(r.createdAt)}</span>
             </div>
             <div class="record-metrics">
-              <span class="${metricClass(r.passConcentration)}">${r.concentration}%</span>
+              <span class="${metricClass(r.passConcentration)}">${Number(r.concentration).toFixed(2)}%</span>
               <span class="${metricClass(r.passLiquid)}">${r.liquidWeight}g</span>
               ${badge(r.passOverall, '✅ 過關', '❌ 未過關')}
             </div>
