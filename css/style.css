@@ -492,6 +492,18 @@ textarea {
   align-items: center;
 }
 
+.metric-value {
+  font-weight: 700;
+}
+
+.metric-value.pass {
+  color: var(--pass);
+}
+
+.metric-value.fail {
+  color: var(--fail);
+}
+
 .record-detail {
   margin-top: 12px;
   padding-top: 12px;

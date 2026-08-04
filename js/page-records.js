@@ -59,6 +59,11 @@ function badge(state, passText, failText) {
   return `<span class="badge ${state ? 'pass' : 'fail'}">${state ? passText : failText}</span>`;
 }
 
+function metricClass(state) {
+  if (state === undefined || state === null) return 'metric-value';
+  return `metric-value ${state ? 'pass' : 'fail'}`;
+}
+
 function formatTime(ts) {
   if (!ts || !ts.toDate) return '';
   return ts.toDate().toLocaleString('zh-TW', { hour12: false });
@@ -108,13 +113,12 @@ function render() {
               <span class="meta">${formatTime(r.createdAt)}</span>
             </div>
             <div class="record-metrics">
-              <span>${r.concentration}%</span>
-              <span>${r.liquidWeight}g</span>
+              <span class="${metricClass(r.passConcentration)}">${r.concentration}%</span>
+              <span class="${metricClass(r.passLiquid)}">${r.liquidWeight}g</span>
               ${badge(r.passOverall, '✅ 過關', '❌ 未過關')}
             </div>
           </summary>
           <div class="record-detail">
-            <div>濃度判定：${badge(r.passConcentration, '過關', '未過關')}　液體量判定：${badge(r.passLiquid, '過關', '未過關')}</div>
             ${detailRows.map(([k, v]) => `<div><strong>${k}：</strong>${escapeHtml(String(v))}</div>`).join('')}
             ${isMine ? `<div style="margin-top:10px;"><button type="button" class="edit-btn" data-id="${r.id}">✏️ 更正這筆紀錄</button></div>` : ''}
           </div>
