@@ -81,6 +81,10 @@ body {
   margin: 24px 0 12px;
 }
 
+.page-heading:first-child {
+  margin-top: 0;
+}
+
 .page-heading h2 {
   margin: 0;
 }

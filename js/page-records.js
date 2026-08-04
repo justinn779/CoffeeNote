@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js';
 import { db } from './firebase-init.js';
 import { GROUPS } from './config.js';
 import { requireIdentity } from './identity.js';

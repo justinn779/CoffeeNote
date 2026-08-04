@@ -1,4 +1,4 @@
-import { collection, addDoc, updateDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { collection, addDoc, updateDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js';
 import { db } from './firebase-init.js';
 import { THRESHOLDS, evaluatePass, DOSE_OPTIONS, FIELD_DEFAULTS, computeWaterWeight } from './config.js';
 import { requireIdentity } from './identity.js';
