@@ -17,6 +17,11 @@
   box-sizing: border-box;
 }
 
+html, body {
+  /* 停用連續點擊觸發的瀏覽器縮放，但保留雙指縮放與捲動 */
+  touch-action: manipulation;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
@@ -150,7 +155,7 @@ h2 {
 
 label {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   margin: 12px 0 6px;
 }
