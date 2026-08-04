@@ -35,23 +35,23 @@
 
         <div class="field-row">
           <div>
-            <label for="water-temp">水溫 (°C)</label>
-            <div class="stepper" data-decimals="1">
-              <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
-              <input type="number" id="water-temp" class="stepper-input" step="0.5" min="0" max="100" inputmode="decimal" />
-              <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
-            </div>
-          </div>
-          <div>
             <label for="dose-weight">粉重 (g)</label>
             <select id="dose-weight"></select>
           </div>
+          <div>
+            <label for="grind-size">研磨刻度</label>
+            <div class="stepper" data-decimals="1">
+              <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
+              <input type="number" id="grind-size" class="stepper-input" step="0.5" min="0" max="20" inputmode="decimal" />
+              <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
+            </div>
+          </div>
         </div>
 
-        <label for="grind-size">研磨刻度</label>
+        <label for="water-temp">水溫 (°C)</label>
         <div class="stepper" data-decimals="1">
           <button type="button" class="stepper-btn" data-delta="-0.5">－</button>
-          <input type="number" id="grind-size" class="stepper-input" step="0.5" min="0" max="20" inputmode="decimal" />
+          <input type="number" id="water-temp" class="stepper-input" step="0.5" min="0" max="100" inputmode="decimal" />
           <button type="button" class="stepper-btn" data-delta="0.5">＋</button>
         </div>
 
@@ -77,6 +77,13 @@
             <input type="number" id="brew-seconds" class="stepper-input" step="5" min="0" max="59" inputmode="numeric" />
             <button type="button" class="stepper-btn" data-delta="5">＋</button>
           </div>
+        </div>
+
+        <label for="pour-stages">悶蒸後幾段注水</label>
+        <div class="stepper" data-decimals="0">
+          <button type="button" class="stepper-btn" data-delta="-1">－</button>
+          <input type="number" id="pour-stages" class="stepper-input" step="1" min="1" max="10" inputmode="numeric" />
+          <button type="button" class="stepper-btn" data-delta="1">＋</button>
         </div>
       </div>
 

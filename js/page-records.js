@@ -93,6 +93,7 @@ function render() {
         ['注水量', r.waterWeight != null ? `${r.waterWeight} g` : ''],
         ['研磨刻度', r.grindSize],
         ['沖煮時間', r.brewTime],
+        ['悶蒸後幾段注水', r.pourStages],
         ['備註', r.notes],
       ].filter(([, v]) => v);
 

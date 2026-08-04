@@ -28,6 +28,7 @@ const waterWeightInput = document.getElementById('water-weight');
 const brewMinutesInput = document.getElementById('brew-minutes');
 const brewSecondsInput = document.getElementById('brew-seconds');
 const grindSizeInput = document.getElementById('grind-size');
+const pourStagesInput = document.getElementById('pour-stages');
 const beanSelect = document.getElementById('bean-select');
 
 function pad2(n) {
@@ -53,6 +54,7 @@ grindSizeInput.value = FIELD_DEFAULTS.grindSize.toFixed(1);
 concentrationInput.value = FIELD_DEFAULTS.concentration.toFixed(2);
 brewMinutesInput.value = FIELD_DEFAULTS.brewMinutes;
 brewSecondsInput.value = FIELD_DEFAULTS.brewSeconds;
+pourStagesInput.value = FIELD_DEFAULTS.pourStages;
 
 function applyDoseDefaults() {
   const dose = parseFloat(doseSelect.value);
@@ -141,6 +143,7 @@ async function loadForEdit(id) {
     doseSelect.value = data.doseWeight != null ? String(data.doseWeight) : String(FIELD_DEFAULTS.doseWeight);
     waterWeightInput.value = data.waterWeight ?? computeWaterWeight(parseFloat(doseSelect.value));
     grindSizeInput.value = Number(data.grindSize ?? FIELD_DEFAULTS.grindSize).toFixed(1);
+    pourStagesInput.value = data.pourStages ?? FIELD_DEFAULTS.pourStages;
 
     if (data.brewTime) {
       const [m, s] = data.brewTime.split(':');
@@ -234,6 +237,7 @@ form.addEventListener('submit', async (e) => {
     waterWeight: parseFloatOrNull(waterWeightInput.value),
     brewTime: `${pad2(brewMinutesInput.value)}:${pad2(brewSecondsInput.value)}`,
     grindSize: parseFloatOrNull(grindSizeInput.value),
+    pourStages: parseFloatOrNull(pourStagesInput.value),
     concentration,
     liquidWeight,
     passConcentration,

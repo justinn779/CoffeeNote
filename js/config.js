@@ -19,6 +19,7 @@ export const FIELD_DEFAULTS = {
   grindSize: 5.0,
   concentration: 1.3,
   liquidWeight: 200,
+  pourStages: 1,
 };
 
 // 注水量的預設值依粉重比例換算，粉重改變時會重新計算
