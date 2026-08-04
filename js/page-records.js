@@ -12,6 +12,7 @@ const listArea = document.getElementById('list-area');
 const beanFilter = document.getElementById('filter-bean');
 const groupFilter = document.getElementById('filter-group');
 const mineFilter = document.getElementById('filter-mine');
+const refreshBtn = document.getElementById('refresh-btn');
 
 GROUPS.forEach((g) => {
   const opt = document.createElement('option');
@@ -23,6 +24,8 @@ GROUPS.forEach((g) => {
 let allRecords = [];
 
 async function loadRecords() {
+  refreshBtn.classList.add('spinning');
+  refreshBtn.disabled = true;
   try {
     const q = query(collection(db, 'records'), orderBy('createdAt', 'desc'));
     const snap = await getDocs(q);
@@ -32,10 +35,15 @@ async function loadRecords() {
   } catch (err) {
     console.error(err);
     listArea.innerHTML = '<p class="empty-state">載入失敗，請確認網路連線後重新整理頁面</p>';
+  } finally {
+    refreshBtn.classList.remove('spinning');
+    refreshBtn.disabled = false;
   }
 }
 
 function populateBeanOptions() {
+  const previousValue = beanFilter.value;
+
   const beanMeta = new Map();
   allRecords.forEach((r) => {
     if (!r.beanName || beanMeta.has(r.beanName)) return;
@@ -52,6 +60,8 @@ function populateBeanOptions() {
     opt.textContent = meta ? `${b}（${meta}）` : b;
     beanFilter.appendChild(opt);
   });
+
+  if (beans.includes(previousValue)) beanFilter.value = previousValue;
 }
 
 function badge(state, passText, failText) {
@@ -137,6 +147,7 @@ function escapeHtml(str) {
 beanFilter.addEventListener('change', render);
 groupFilter.addEventListener('change', render);
 mineFilter.addEventListener('change', render);
+refreshBtn.addEventListener('click', loadRecords);
 
 listArea.addEventListener('click', (e) => {
   const btn = e.target.closest('.edit-btn');
