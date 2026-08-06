@@ -27,6 +27,8 @@ const doseSelect = document.getElementById('dose-weight');
 const waterWeightInput = document.getElementById('water-weight');
 const brewMinutesInput = document.getElementById('brew-minutes');
 const brewSecondsInput = document.getElementById('brew-seconds');
+const extractMinutesInput = document.getElementById('extract-minutes');
+const extractSecondsInput = document.getElementById('extract-seconds');
 const grindSizeInput = document.getElementById('grind-size');
 const pourStagesInput = document.getElementById('pour-stages');
 const beanSelect = document.getElementById('bean-select');
@@ -54,6 +56,8 @@ grindSizeInput.value = FIELD_DEFAULTS.grindSize.toFixed(1);
 concentrationInput.value = FIELD_DEFAULTS.concentration.toFixed(2);
 brewMinutesInput.value = FIELD_DEFAULTS.brewMinutes;
 brewSecondsInput.value = FIELD_DEFAULTS.brewSeconds;
+extractMinutesInput.value = FIELD_DEFAULTS.extractMinutes;
+extractSecondsInput.value = FIELD_DEFAULTS.extractSeconds;
 pourStagesInput.value = FIELD_DEFAULTS.pourStages;
 
 function applyDoseDefaults() {
@@ -151,6 +155,12 @@ async function loadForEdit(id) {
       brewSecondsInput.value = parseInt(s, 10);
     }
 
+    if (data.extractTime) {
+      const [m, s] = data.extractTime.split(':');
+      extractMinutesInput.value = parseInt(m, 10);
+      extractSecondsInput.value = parseInt(s, 10);
+    }
+
     concentrationInput.value = Number(data.concentration ?? FIELD_DEFAULTS.concentration).toFixed(2);
     liquidInput.value = data.liquidWeight ?? FIELD_DEFAULTS.liquidWeight;
     document.getElementById('notes').value = data.notes || '';
@@ -243,6 +253,7 @@ form.addEventListener('submit', async (e) => {
     doseWeight: parseFloatOrNull(doseSelect.value),
     waterWeight: parseFloatOrNull(waterWeightInput.value),
     brewTime: `${pad2(brewMinutesInput.value)}:${pad2(brewSecondsInput.value)}`,
+    extractTime: `${pad2(extractMinutesInput.value)}:${pad2(extractSecondsInput.value)}`,
     grindSize: parseFloatOrNull(grindSizeInput.value),
     pourStages: parseFloatOrNull(pourStagesInput.value),
     concentration,

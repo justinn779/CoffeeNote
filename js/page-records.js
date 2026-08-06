@@ -107,7 +107,8 @@ function render() {
         ['粉重', r.doseWeight != null ? `${r.doseWeight} g` : ''],
         ['注水量', r.waterWeight != null ? `${r.waterWeight} g` : ''],
         ['研磨刻度', r.grindSize],
-        ['沖煮時間', r.brewTime],
+        ['注水時間', r.brewTime],
+        ['萃取總時間', r.extractTime],
         ['悶蒸後幾段注水', r.pourStages],
         ['備註', r.notes],
       ].filter(([, v]) => v);

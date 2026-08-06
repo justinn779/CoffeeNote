@@ -16,6 +16,8 @@ export const FIELD_DEFAULTS = {
   waterTemp: 92,
   brewMinutes: 2,
   brewSeconds: 30,
+  extractMinutes: 3,
+  extractSeconds: 0,
   grindSize: 5.0,
   concentration: 1.3,
   liquidWeight: 200,

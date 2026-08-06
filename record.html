@@ -64,7 +64,7 @@
           <button type="button" class="stepper-btn" data-delta="5">＋5</button>
         </div>
 
-        <label>沖煮總時間（分:秒）</label>
+        <label>注水時間（分:秒）</label>
         <div class="time-row">
           <div class="stepper" data-decimals="0">
             <button type="button" class="stepper-btn" data-delta="-1">－</button>
@@ -75,6 +75,21 @@
           <div class="stepper" data-decimals="0">
             <button type="button" class="stepper-btn" data-delta="-5">－</button>
             <input type="number" id="brew-seconds" class="stepper-input" step="5" min="0" max="59" inputmode="numeric" />
+            <button type="button" class="stepper-btn" data-delta="5">＋</button>
+          </div>
+        </div>
+
+        <label>萃取總時間（分:秒）</label>
+        <div class="time-row">
+          <div class="stepper" data-decimals="0">
+            <button type="button" class="stepper-btn" data-delta="-1">－</button>
+            <input type="number" id="extract-minutes" class="stepper-input" step="1" min="0" max="59" inputmode="numeric" />
+            <button type="button" class="stepper-btn" data-delta="1">＋</button>
+          </div>
+          <span class="time-colon">:</span>
+          <div class="stepper" data-decimals="0">
+            <button type="button" class="stepper-btn" data-delta="-5">－</button>
+            <input type="number" id="extract-seconds" class="stepper-input" step="5" min="0" max="59" inputmode="numeric" />
             <button type="button" class="stepper-btn" data-delta="5">＋</button>
           </div>
         </div>
