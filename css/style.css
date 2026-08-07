@@ -108,15 +108,16 @@ body {
 
 .qr-btn {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  bottom: 20px;
+  right: 20px;
   z-index: 30;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(75, 54, 33, 0.15);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--coffee-dark);
+  color: var(--cream);
+  border: none;
+  box-shadow: 0 4px 14px rgba(75, 54, 33, 0.35);
 }
 
 .modal-backdrop {

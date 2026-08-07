@@ -30,6 +30,17 @@
     <p class="footer-link"><a href="beans.html">☕ 管理咖啡豆清單</a></p>
   </div>
 
+  <button type="button" class="icon-btn qr-btn" id="qr-btn" aria-label="顯示 QR Code">▦</button>
+
+  <div class="modal-backdrop" id="qr-modal" hidden>
+    <div class="modal-card">
+      <button type="button" class="icon-btn modal-close" id="qr-close" aria-label="關閉">×</button>
+      <h2 style="margin-top:0;">掃描加入 CoffeeNote</h2>
+      <img id="qr-image" class="qr-image" alt="CoffeeNote 網址 QR Code" width="220" height="220" />
+      <p class="hint" id="qr-url"></p>
+    </div>
+  </div>
+
   <script type="module" src="js/page-dashboard.js"></script>
 </body>
 </html>
